@@ -5,6 +5,7 @@ import android.view.GestureDetector
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     var data = mutableListOf<String>()
     lateinit var adapter: ArrayAdapter<String>
-    lateinit var listView: ListView
+    lateinit var _lv1: ListView
     lateinit var _btnTambah: Button
     lateinit var gestureDetector: GestureDetector
 
@@ -28,13 +29,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        listView = findViewById(R.id.lv1)
+        _lv1 = findViewById(R.id.lv1)
         _btnTambah = findViewById(R.id.btnTambah)
 
         data.addAll(listOf("1","2","3","4","5"))
 
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, data)
-        listView.adapter = adapter
+        _lv1.adapter = adapter
 
 
         _btnTambah.setOnClickListener {
@@ -42,6 +43,14 @@ class MainActivity : AppCompatActivity() {
             data.add("$dtAkhir")
 
             adapter.notifyDataSetChanged()
+        }
+
+        _lv1.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(
+                this,
+                data[position],
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }
