@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     var data = mutableListOf<String>()
     lateinit var adapter: ArrayAdapter<String>
     lateinit var listView: ListView
-    lateinit var btnTambah: Button
+    lateinit var _btnTambah: Button
     lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         listView = findViewById(R.id.lv1)
-        btnTambah = findViewById(R.id.btnTambah)
+        _btnTambah = findViewById(R.id.btnTambah)
 
         data.addAll(listOf("1","2","3","4","5"))
 
@@ -37,5 +37,11 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = adapter
 
 
+        _btnTambah.setOnClickListener {
+            var dtAkhir = Integer.parseInt(data.get(data.size - 1)) + 1
+            data.add("$dtAkhir")
+
+            adapter.notifyDataSetChanged()
+        }
     }
 }
