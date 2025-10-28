@@ -2,6 +2,7 @@ package com.example.listview
 
 import android.os.Bundle
 import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
@@ -52,5 +53,21 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+
+        gestureDetector = GestureDetector(
+            this,
+            object : GestureDetector.SimpleOnGestureListener() {
+            override fun onDoubleTap(e: MotionEvent): Boolean {
+                val position = _lv1.pointToPosition(e.x.toInt(), e.y.toInt())
+                if (position != ListView.INVALID_POSITION) {
+                    val selectedItem = data[position]
+                    showActionDialog(position, selectedItem, data, adapter)
+                }
+                return true
+            }
+        })
     }
+
+
 }
